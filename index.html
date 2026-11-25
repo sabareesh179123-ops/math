@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ganita Prakash — Class 8 (Part 2) | Chapter 3, Page 67</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --slate-deep: #0f172a;
+            --indigo-header: #1e1b4b;
+            --teal-direct: #0d9488;
+            --coral-inverse: #e11d48;
+            --amber-accent: #d97706;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+            color: #1e293b;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .math-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Floating Subtle Ratio Icons */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-18px) rotate(6deg); }
+        }
+        @keyframes floatReverse {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(15px) rotate(-6deg); }
+        }
+        @keyframes balanceTilt {
+            0%, 100% { transform: rotate(-6deg); }
+            50% { transform: rotate(6deg); }
+        }
+        @keyframes waveMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .float-1 { animation: floatSlow 7s ease-in-out infinite; }
+        .float-2 { animation: floatReverse 8.5s ease-in-out infinite; }
+        .balance-beam { transform-origin: 150px 75px; animation: balanceTilt 4.5s ease-in-out infinite; }
+
+        /* 3D Slide Deck Viewport */
+        .deck-viewport {
+            perspective: 1500px;
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(70px) scale(0.95) rotateY(-4deg);
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4.5rem 1.25rem 5rem 1.25rem;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(0) scale(1) rotateY(0deg);
+            z-index: 10;
+        }
+
+        .slide.prev {
+            opacity: 0;
+            transform: translateX(-70px) scale(0.95) rotateY(4deg);
+            z-index: 5;
+        }
+
+        /* Staggered Card Reveals */
+        .slide.active .anim-up {
+            animation: slideUpFade 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .slide.active .delay-1 { animation-delay: 0.08s; opacity: 0; }
+        .slide.active .delay-2 { animation-delay: 0.18s; opacity: 0; }
+        .slide.active .delay-3 { animation-delay: 0.28s; opacity: 0; }
+        .slide.active .delay-4 { animation-delay: 0.38s; opacity: 0; }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(22px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Crisp Light Educational Slide Card */
+        .slide-paper {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.15);
+            color: #0f172a;
+        }
+
+        /* 3D Flip Card Styling for Question 1 */
+        .flip-card {
+            perspective: 1000px;
+            cursor: pointer;
+            min-height: 215px;
+        }
+        .flip-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 215px;
+            transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-front, .flip-back {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 1.25rem;
+            padding: 1.35rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .flip-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Step-by-Step Reveal Boxes */
+        .step-item {
+            opacity: 0.25;
+            transform: translateX(-8px);
+            filter: blur(1.5px);
+            transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .step-item.revealed {
+            opacity: 1;
+            transform: translateX(0);
+            filter: blur(0);
+        }
+
+        /* Live Classroom Edit Mode */
+        body.edit-mode [contenteditable="true"] {
+            outline: 2px dashed #d97706;
+            outline-offset: 3px;
+            border-radius: 6px;
+            background-color: rgba(251, 191, 36, 0.12);
+            user-select: text;
+            cursor: text;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.4); border-radius: 999px; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Top Animated Progress Bar -->
+    <div class="fixed top-0 left-0 right-0 h-1.5 bg-slate-900 z-50">
+        <div id="progressBar" class="h-full bg-gradient-to-r from-teal-400 via-amber-400 to-rose-500 transition-all duration-500" style="width: 12.5%;"></div>
+    </div>
+
+    <!-- Top Header & Classroom Toolbar -->
+    <header class="fixed top-3 left-3 right-3 sm:left-6 sm:right-6 z-40 flex items-center justify-between pointer-events-none">
+        <div class="bg-slate-900/90 backdrop-blur-md border border-slate-700/80 px-3.5 py-1.5 rounded-full flex items-center gap-2.5 shadow-lg pointer-events-auto">
+            <span class="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse"></span>
+            <span class="text-xs sm:text-sm font-bold tracking-wide text-white">GANITA PRAKASH • PART 2</span>
+            <span class="hidden md:inline-block text-xs px-2.5 py-0.5 rounded-full bg-indigo-500/30 text-indigo-200 border border-indigo-400/40 font-semibold">
+                Ch. 3: Proportional Reasoning–2 • Page 67
+            </span>
+        </div>
+
+        <div class="flex items-center gap-2 pointer-events-auto">
+            <!-- Edit Text Mode -->
+            <button id="editToggleBtn" onclick="toggleEditMode()" title="Customize text or numbers during class" class="bg-slate-900/90 backdrop-blur-md border border-amber-400/40 px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-amber-300 hover:bg-amber-500/20 transition flex items-center gap-1.5 shadow-lg">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                <span id="editBtnLabel">Edit Text</span>
+            </button>
+
+            <!-- Slide Overview Grid -->
+            <button onclick="toggleGridModal()" title="View all 8 slides" class="bg-slate-900/90 backdrop-blur-md border border-teal-400/40 px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-teal-300 hover:bg-teal-500/20 transition flex items-center gap-1.5 shadow-lg">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                <span class="hidden sm:inline">Slides</span>
+            </button>
+
+            <!-- Fullscreen Toggle -->
+            <button onclick="toggleFullscreen()" title="Toggle Fullscreen Mode" class="bg-slate-900/90 backdrop-blur-md border border-slate-700 px-2.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-slate-200 hover:bg-slate-800 transition shadow-lg">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Background Subtle Floating Math/Ratio Icons -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div class="float-1 absolute top-24 left-8 text-teal-400/15 math-font text-4xl font-extrabold">x / y = k</div>
+        <div class="float-2 absolute bottom-24 right-10 text-rose-400/15 math-font text-4xl font-extrabold">x × y = k</div>
+        <div class="float-1 absolute top-1/2 right-12 text-amber-400/10 math-font text-5xl font-extrabold">a : b</div>
+    </div>
+
+    <!-- Main 3D Presentation Deck -->
+    <main class="deck-viewport" id="deckViewport">
+
+        <!-- ================= SLIDE 1: TITLE SLIDE ================= -->
+        <section class="slide active" data-title="1. Title: Proportional Reasoning–2">
+            <div class="max-w-5xl mx-auto w-full slide-paper p-7 sm:p-12 text-center relative overflow-hidden">
+                <!-- Top Decorative Banner Strip -->
+                <div class="absolute top-0 left-0 right-0 h-2.5 bg-gradient-to-r from-indigo-900 via-teal-600 to-rose-600"></div>
+
+                <div class="anim-up inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-900 text-xs sm:text-sm font-bold mb-5">
+                    <span>NCERT Class 8 Mathematics</span>
+                    <span>•</span>
+                    <span>Ganita Prakash (Part 2)</span>
+                </div>
+
+                <h1 class="anim-up delay-1 text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight editable">
+                    Chapter 3: Proportional Reasoning–2
+                </h1>
+
+                <div class="anim-up delay-2 mt-3 inline-block px-6 py-2.5 rounded-2xl bg-gradient-to-r from-indigo-950 to-slate-900 text-white shadow-lg">
+                    <span class="text-lg sm:text-2xl font-bold text-amber-400 editable">Page 67: “Figure It Out”</span>
+                </div>
+
+                <!-- Animated Ratio Balance SVG Graphic -->
+                <div class="anim-up delay-3 my-6 flex justify-center">
+                    <svg viewBox="0 0 300 135" class="w-64 sm:w-72 h-auto">
+                        <!-- Base & Pillar -->
+                        <polygon points="120,125 180,125 155,75 145,75" fill="#1e1b4b"/>
+                        <rect x="95" y="122" width="110" height="8" rx="4" fill="#0f172a"/>
+                        <circle cx="150" cy="75" r="7" fill="#d97706"/>
+                        <!-- Animated Tilting Balance Beam -->
+                        <g class="balance-beam">
+                            <line x1="45" y1="75" x2="255" y2="75" stroke="#334155" stroke-width="5" stroke-linecap="round"/>
+                            <!-- Left Pan: Direct (x/y) -->
+                            <line x1="55" y1="75" x2="40" y2="102" stroke="#0d9488" stroke-width="2"/>
+                            <line x1="55" y1="75" x2="70" y2="102" stroke="#0d9488" stroke-width="2"/>
+                            <rect x="25" y="100" width="60" height="22" rx="6" fill="#0d9488"/>
+                            <text x="55" y="115" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">x / y = k</text>
+                            <!-- Right Pan: Inverse (x*y) -->
+                            <line x1="245" y1="75" x2="230" y2="102" stroke="#e11d48" stroke-width="2"/>
+                            <line x1="245" y1="75" x2="260" y2="102" stroke="#e11d48" stroke-width="2"/>
+                            <rect x="215" y="100" width="60" height="22" rx="6" fill="#e11d48"/>
+                            <text x="245" y="115" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">x × y = k</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <p class="anim-up delay-3 max-w-2xl mx-auto text-slate-600 text-sm sm:text-base editable">
+                    Mastering Direct &amp; Inverse Proportion through real-world scenarios, unitary reasoning, water supply constraints, and 24-hour sleep charts.
+                </p>
+
+                <div class="anim-up delay-4 mt-6 flex flex-wrap items-center justify-center gap-4">
+                    <button onclick="nextSlide()" class="px-7 py-3.5 rounded-2xl bg-indigo-900 hover:bg-indigo-800 text-white font-bold shadow-xl shadow-indigo-900/25 transition transform hover:scale-105 flex items-center gap-2">
+                        <span>Start Lesson</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                    </button>
+                    <span class="text-xs text-slate-500 font-medium">Use <kbd class="px-2 py-0.5 bg-slate-100 border border-slate-300 rounded text-slate-700">→</kbd> or <kbd class="px-2 py-0.5 bg-slate-100 border border-slate-300 rounded text-slate-700">Space</kbd> to advance</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SLIDE 2: CONCEPT WARM-UP ================= -->
+        <section class="slide" data-title="2. Concept Warm-Up: Direct vs. Inverse">
+            <div class="max-w-6xl mx-auto w-full slide-paper p-6 sm:p-9">
+                <div class="anim-up flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4 mb-6">
+                    <div>
+                        <span class="text-xs font-extrabold uppercase tracking-wider text-indigo-700">Concept Warm-Up</span>
+                        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 editable">Direct vs. Inverse Proportion</h2>
+                    </div>
+                    <!-- Interactive Highlight Switcher -->
+                    <div class="flex items-center gap-2 bg-slate-100 p-1.5 rounded-xl border border-slate-200">
+                        <button onclick="highlightMode('both')" id="btnModeBoth" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-900 text-white shadow transition">Compare Both</button>
+                        <button onclick="highlightMode('direct')" id="btnModeDirect" class="px-3 py-1.5 rounded-lg text-xs font-bold text-teal-800 hover:bg-teal-100 transition">Focus Direct</button>
+                        <button onclick="highlightMode('inverse')" id="btnModeInverse" class="px-3 py-1.5 rounded-lg text-xs font-bold text-rose-800 hover:bg-rose-100 transition">Focus Inverse</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Direct Proportion Card -->
+                    <div id="directCard" class="anim-up delay-1 rounded-2xl p-6 bg-teal-50/80 border-2 border-teal-500 transition-all duration-300 shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-3 py-1 rounded-full bg-teal-600 text-white text-xs font-bold uppercase tracking-wide">Direct Proportion</span>
+                            <span class="text-2xl font-extrabold text-teal-700">↑ ↑ &nbsp;or&nbsp; ↓ ↓</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2 editable">Both Quantities Move Together</h3>
+                        <p class="text-sm text-slate-700 leading-relaxed mb-4 editable">
+                            When quantity <span class="math-font font-bold text-teal-800">x</span> increases, quantity <span class="math-font font-bold text-teal-800">y</span> increases by the <strong>same multiplying factor</strong>. Their ratio stays constant!
+                        </p>
+                        <div class="bg-white p-4 rounded-xl border border-teal-200 math-font text-center">
+                            <div class="text-lg sm:text-xl font-extrabold text-teal-700">x / y = k &nbsp;&nbsp;(Constant)</div>
+                            <div class="text-xs text-slate-500 mt-1">x₁ / y₁ = x₂ / y₂</div>
+                        </div>
+                        <div class="mt-4 text-xs font-semibold text-teal-900 bg-teal-100/80 px-3 py-2 rounded-lg editable">
+                            Example: More pencils bought → Higher total cost (at fixed price per pencil).
+                        </div>
+                    </div>
+
+                    <!-- Inverse Proportion Card -->
+                    <div id="inverseCard" class="anim-up delay-2 rounded-2xl p-6 bg-rose-50/80 border-2 border-rose-500 transition-all duration-300 shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-3 py-1 rounded-full bg-rose-600 text-white text-xs font-bold uppercase tracking-wide">Inverse Proportion</span>
+                            <span class="text-2xl font-extrabold text-rose-700">↑ ↓ &nbsp;or&nbsp; ↓ ↑</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2 editable">One Rises, The Other Falls</h3>
+                        <p class="text-sm text-slate-700 leading-relaxed mb-4 editable">
+                            When quantity <span class="math-font font-bold text-rose-800">x</span> increases by a factor, quantity <span class="math-font font-bold text-rose-800">y</span> decreases by the <strong>same factor</strong>. Their product stays constant!
+                        </p>
+                        <div class="bg-white p-4 rounded-xl border border-rose-200 math-font text-center">
+                            <div class="text-lg sm:text-xl font-extrabold text-rose-700">x × y = k &nbsp;&nbsp;(Constant)</div>
+                            <div class="text-xs text-slate-500 mt-1">x₁ × y₁ = x₂ × y₂</div>
+                        </div>
+                        <div class="mt-4 text-xs font-semibold text-rose-900 bg-rose-100/80 px-3 py-2 rounded-lg editable">
+                            Example: More taps filling the same tank → Fewer minutes needed.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SLIDE 3: QUESTION 1 (PART A: PAIRS 1-3) ================= -->
+        <section class="slide" data-title="3. Question 1 (Part A): Pairs (a)–(c)">
+            <div class="max-w-6xl mx-auto w-full slide-paper p-6 sm:p-9">
+                <div class="anim-up flex flex-wrap items-center justify-between gap-3 mb-5">
+                    <div>
+                        <span class="text-xs font-extrabold uppercase tracking-wider text-amber-600">Page 67 • Figure It Out — Question 1 (Part A)</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 editable">Which Pairs Vary in Inverse Proportion?</h2>
+                    </div>
+                    <button onclick="flipAllInSlide(this)" class="px-4 py-2 rounded-xl bg-indigo-900 hover:bg-indigo-800 text-white text-xs sm:text-sm font-bold shadow transition">
+                        Flip All Cards
+                    </button>
+                </div>
+
+                <p class="anim-up delay-1 text-xs sm:text-sm text-slate-600 mb-5">
+                    <strong>Classroom Activity:</strong> Ask students to predict first, then <strong>click each card</strong> to reveal whether it is Direct or Inverse!
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <!-- Pair (a) -->
+                    <div class="anim-up delay-1 flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-inner">
+                            <div class="flip-front bg-slate-50 border-2 border-slate-200 hover:border-indigo-400 shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="w-8 h-8 rounded-lg bg-indigo-900 text-white font-bold flex items-center justify-center text-sm">(a)</span>
+                                    <span class="text-xs font-semibold text-indigo-600">Tap to Reveal ↻</span>
+                                </div>
+                                <p class="text-base sm:text-lg font-bold text-slate-900 my-3 editable">
+                                    Number of identical taps filling a tank <span class="text-indigo-700">vs.</span> time taken to fill it.
+                                </p>
+                                <div class="text-xs text-slate-500 font-medium">Think: If we double the taps, what happens to the time?</div>
+                            </div>
+                            <div class="flip-back bg-rose-600 text-white shadow-lg">
+                                <div class="flex justify-between items-center">
+                                    <span class="px-3 py-1 rounded-full bg-white/20 text-xs font-extrabold uppercase">Inverse Proportion</span>
+                                    <span class="text-lg font-bold">↑ ↓</span>
+                                </div>
+                                <p class="text-sm leading-relaxed my-2 editable">
+                                    More identical taps pour water faster, reducing fill time proportionally.
+                                </p>
+                                <div class="math-font text-xs bg-rose-950/40 p-2 rounded-lg">
+                                    (Taps) × (Time) = Constant
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pair (b) -->
+                    <div class="anim-up delay-2 flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-inner">
+                            <div class="flip-front bg-slate-50 border-2 border-slate-200 hover:border-indigo-400 shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="w-8 h-8 rounded-lg bg-indigo-900 text-white font-bold flex items-center justify-center text-sm">(b)</span>
+                                    <span class="text-xs font-semibold text-indigo-600">Tap to Reveal ↻</span>
+                                </div>
+                                <p class="text-base sm:text-lg font-bold text-slate-900 my-3 editable">
+                                    Number of painters hired <span class="text-indigo-700">vs.</span> days needed to paint a fixed wall.
+                                </p>
+                                <div class="text-xs text-slate-500 font-medium">Assuming all painters work at the same steady rate.</div>
+                            </div>
+                            <div class="flip-back bg-rose-600 text-white shadow-lg">
+                                <div class="flex justify-between items-center">
+                                    <span class="px-3 py-1 rounded-full bg-white/20 text-xs font-extrabold uppercase">Inverse Proportion</span>
+                                    <span class="text-lg font-bold">↑ ↓</span>
+                                </div>
+                                <p class="text-sm leading-relaxed my-2 editable">
+                                    More painters working at the same rate finish the fixed wall in fewer days.
+                                </p>
+                                <div class="math-font text-xs bg-rose-950/40 p-2 rounded-lg">
+                                    (Painters) × (Days) = Total Man-Days
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pair (c) -->
+                    <div class="anim-up delay-3 flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-inner">
+                            <div class="flip-front bg-slate-50 border-2 border-slate-200 hover:border-indigo-400 shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="w-8 h-8 rounded-lg bg-indigo-900 text-white font-bold flex items-center justify-center text-sm">(c)</span>
+                                    <span class="text-xs font-semibold text-indigo-600">Tap to Reveal ↻</span>
+                                </div>
+                                <p class="text-base sm:text-lg font-bold text-slate-900 my-3 editable">
+                                    Distance a car travels <span class="text-indigo-700">vs.</span> quantity of petrol in the tank.
+                                </p>
+                                <div class="text-xs text-slate-500 font-medium">Assuming constant fuel efficiency (mileage).</div>
+                            </div>
+                            <div class="flip-back bg-teal-600 text-white shadow-lg">
+                                <div class="flex justify-between items-center">
+                                    <span class="px-3 py-1 rounded-full bg-white/20 text-xs font-extrabold uppercase">Direct Proportion</span>
+                                    <span class="text-lg font-bold">↑ ↑</span>
+                                </div>
+                                <p class="text-sm leading-relaxed my-2 editable">
+                                    More petrol lets the car travel farther in the exact same ratio (Not inverse!).
+                                </p>
+                                <div class="math-font text-xs bg-teal-950/40 p-2 rounded-lg">
+                                    Distance / Petrol = Mileage (k)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SLIDE 4: QUESTION 1 (PART B: PAIRS 4-6) ================= -->
+        <section class="slide" data-title="4. Question 1 (Part B): Pairs (d)–(f)">
+            <div class="max-w-6xl mx-auto w-full slide-paper p-6 sm:p-9">
+                <div class="anim-up flex flex-wrap items-center justify-between gap-3 mb-5">
+                    <div>
+                        <span class="text-xs font-extrabold uppercase tracking-wider text-amber-600">Page 67 • Figure It Out — Question 1 (Part B)</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 editable">Identifying Inverse Proportion (Pairs d–f)</h2>
+                    </div>
+                    <button onclick="flipAllInSlide(this)" class="px-4 py-2 rounded-xl bg-indigo-900 hover:bg-indigo-800 text-white text-xs sm:text-sm font-bold shadow transition">
+                        Flip All Cards
+                    </button>
+                </div>
+
+                <p class="anim-up delay-1 text-xs sm:text-sm text-slate-600 mb-5">
+                    Click each scenario card below to reveal the relationship and constant formula:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <!-- Pair (d) -->
+                    <div class="anim-up delay-1 flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-inner">
+                            <div class="flip-front bg-slate-50 border-2 border-slate-200 hover:border-indigo-400 shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="w-8 h-8 rounded-lg bg-indigo-900 text-white font-bold flex items-center justify-center text-sm">(d)</span>
+                                    <span class="text-xs font-semibold text-indigo-600">Tap to Reveal ↻</span>
+                                </div>
+                                <p class="text-base sm:text-lg font-bold text-slate-900 my-3 editable">
+                                    A cyclist’s speed <span class="text-indigo-700">vs.</span> time taken to cover a fixed route.
+                                </p>
+                                <div class="text-xs text-slate-500 font-medium">Distance of the route remains unchanged.</div>
+                            </div>
+                            <div class="flip-back bg-rose-600 text-white shadow-lg">
+                                <div class="flex justify-between items-center">
+                                    <span class="px-3 py-1 rounded-full bg-white/20 text-xs font-extrabold uppercase">Inverse Proportion</span>
+                                    <span class="text-lg font-bold">↑ ↓</span>
+                                </div>
+                                <p class="text-sm leading-relaxed my-2 editable">
+                                    Cycling at a higher speed covers the fixed distance in less time.
+                                </p>
+                                <div class="math-font text-xs bg-rose-950/40 p-2 rounded-lg">
+                                    Speed × Time = Fixed Distance
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pair (e) -->
+                    <div class="anim-up delay-2 flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-inner">
+                            <div class="flip-front bg-slate-50 border-2 border-slate-200 hover:border-indigo-400 shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="w-8 h-8 rounded-lg bg-indigo-900 text-white font-bold flex items-center justify-center text-sm">(e)</span>
+                                    <span class="text-xs font-semibold text-indigo-600">Tap to Reveal ↻</span>
+                                </div>
+                                <p class="text-base sm:text-lg font-bold text-slate-900 my-3 editable">
+                                    Length of cloth purchased <span class="text-indigo-700">vs.</span> total price at a fixed rate per metre.
+                                </p>
+                                <div class="text-xs text-slate-500 font-medium">Rate per metre does not change.</div>
+                            </div>
+                            <div class="flip-back bg-teal-600 text-white shadow-lg">
+                                <div class="flex justify-between items-center">
+                                    <span class="px-3 py-1 rounded-full bg-white/20 text-xs font-extrabold uppercase">Direct Proportion</span>
+                                    <span class="text-lg font-bold">↑ ↑</span>
+                                </div>
+                                <p class="text-sm leading-relaxed my-2 editable">
+                                    Buying more metres of cloth increases the total bill proportionally (Not inverse!).
+                                </p>
+                                <div class="math-font text-xs bg-teal-950/40 p-2 rounded-lg">
+                                    Total Price / Length = Rate per m
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pair (f) -->
+                    <div class="anim-up delay-3 flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-inner">
+                            <div class="flip-front bg-slate-50 border-2 border-slate-200 hover:border-indigo-400 shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="w-8 h-8 rounded-lg bg-indigo-900 text-white font-bold flex items-center justify-center text-sm">(f)</span>
+                                    <span class="text-xs font-semibold text-indigo-600">Tap to Reveal ↻</span>
+                                </div>
+                                <p class="text-base sm:text-lg font-bold text-slate-900 my-3 editable">
+                                    Number of pages read <span class="text-indigo-700">vs.</span> reading time at a fixed reading speed.
+                                </p>
+                                <div class="text-xs text-slate-500 font-medium">Assuming uniform page density &amp; speed.</div>
+                            </div>
+                            <div class="flip-back bg-teal-600 text-white shadow-lg">
+                                <div class="flex justify-between items-center">
+                                    <span class="px-3 py-1 rounded-full bg-white/20 text-xs font-extrabold uppercase">Direct Proportion</span>
+                                    <span class="text-lg font-bold">↑ ↑</span>
+                                </div>
+                                <p class="text-sm leading-relaxed my-2 editable">
+                                    More pages require proportionally more reading time at a steady pace (Not inverse!).
+                                </p>
+                                <div class="math-font text-xs bg-teal-950/40 p-2 rounded-lg">
+                                    Pages / Time = Reading Speed
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SLIDE 5: QUESTION 2 (COST OF PENCILS) ================= -->
+        <section class="slide" data-title="5. Question 2: Cost of Pencils">
+            <div class="max-w-5xl mx-auto w-full slide-paper p-6 sm:p-9">
+                <div class="anim-up flex flex-wrap items-center justify-between gap-3 mb-5">
+                    <div>
+                        <span class="text-xs font-extrabold uppercase tracking-wider text-teal-700">Page 67 • Figure It Out — Question 2 (Direct Proportion)</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 editable">Cost of Pencils — Unitary &amp; Ratio Method</h2>
+                    </div>
+                    <button onclick="revealNextStep('q2')" class="px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-bold text-sm shadow-lg shadow-teal-600/25 transition flex items-center gap-2">
+                        <span>Next Step</span>
+                        <span id="q2Counter" class="px-2 py-0.5 rounded bg-black/20 text-xs">1 / 3</span>
+                    </button>
+                </div>
+
+                <!-- Textbook Question Box -->
+                <div class="anim-up delay-1 bg-teal-50 border-l-4 border-l-teal-600 p-4 rounded-xl mb-5">
+                    <p class="text-base sm:text-lg font-semibold text-slate-900 editable">
+                        <strong>Question 2:</strong> If the cost of <span class="text-teal-700 font-extrabold">24 pencils</span> is <span class="text-teal-700 font-extrabold">₹120</span>, what is the cost of <span class="text-amber-700 font-extrabold">20 pencils</span>?
+                    </p>
+                </div>
+
+                <!-- Visual Pencil-Pack Ratio Bar -->
+                <div class="anim-up delay-2 bg-slate-100 p-4 rounded-2xl border border-slate-200 mb-5">
+                    <div class="text-xs font-bold uppercase text-slate-500 mb-2">Visual Ratio Bar Comparison</div>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-xs font-bold text-slate-700 mb-1">
+                                <span>24 Pencils (Full Pack)</span>
+                                <span class="math-font text-teal-700">₹120</span>
+                            </div>
+                            <div class="w-full h-5 bg-slate-200 rounded-full overflow-hidden flex">
+                                <div class="h-full bg-teal-600 transition-all duration-700" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-bold text-slate-700 mb-1">
+                                <span>20 Pencils (5/6 of Pack)</span>
+                                <span id="barCostLabel" class="math-font text-amber-700">?</span>
+                            </div>
+                            <div class="w-full h-5 bg-slate-200 rounded-full overflow-hidden flex">
+                                <div class="h-full bg-amber-500 transition-all duration-700" style="width: 83.33%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step-by-Step Animated Reveal -->
+                <div class="space-y-3" id="q2Steps">
+                    <div class="step-item revealed bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
+                        <span class="text-xs font-extrabold text-teal-700 uppercase">Step 1: Identify Relationship &amp; Given Values</span>
+                        <p class="math-font text-sm sm:text-base text-slate-800 mt-1 editable">
+                            More pencils ⇒ Higher cost (Direct Proportion). &nbsp;Given: Cost of 24 pencils = ₹120
+                        </p>
+                    </div>
+
+                    <div class="step-item bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
+                        <span class="text-xs font-extrabold text-indigo-700 uppercase">Step 2: Unitary Method (Cost of 1 Pencil)</span>
+                        <p class="math-font text-sm sm:text-base text-slate-800 mt-1 editable">
+                            Cost of 1 pencil = ₹120 ÷ 24 = <span class="text-indigo-700 font-bold">₹5</span>
+                        </p>
+                    </div>
+
+                    <div class="step-item bg-teal-50 border-2 border-teal-500 p-4 rounded-xl shadow-sm">
+                        <span class="text-xs font-extrabold text-teal-800 uppercase">Step 3: Final Answer (Cost of 20 Pencils)</span>
+                        <p class="math-font text-sm sm:text-base text-slate-900 mt-1 editable">
+                            Cost of 20 pencils = 20 × ₹5 = <span class="text-teal-700 font-extrabold text-lg">₹100</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SLIDE 6: QUESTION 3 (BUILDING WATER SUPPLY) ================= -->
+        <section class="slide" data-title="6. Question 3: Building Water Supply">
+            <div class="max-w-6xl mx-auto w-full slide-paper p-6 sm:p-9">
+                <div class="anim-up flex flex-wrap items-center justify-between gap-3 mb-5">
+                    <div>
+                        <span class="text-xs font-extrabold uppercase tracking-wider text-rose-600">Page 67 • Figure It Out — Question 3 (Inverse Proportion)</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 editable">Building Water Supply &amp; Key Assumptions</h2>
+                    </div>
+                    <button onclick="revealNextStep('q3')" class="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-sm shadow-lg shadow-rose-600/25 transition flex items-center gap-2">
+                        <span>Next Step</span>
+                        <span id="q3Counter" class="px-2 py-0.5 rounded bg-black/20 text-xs">1 / 3</span>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    <!-- Left: Animated Water Tank & Assumptions -->
+                    <div class="anim-up delay-1 lg:col-span-5 space-y-4">
+                        <div class="bg-slate-900 text-white p-5 rounded-2xl flex flex-col items-center">
+                            <span class="text-xs font-bold uppercase tracking-wider text-cyan-300 mb-2">Rooftop Tank Capacity = 120 Family-Days</span>
+                            <svg viewBox="0 0 220 140" class="w-48 h-auto">
+                                <!-- Tank Outline -->
+                                <rect x="35" y="15" width="150" height="105" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="3"/>
+                                <!-- Animated Water Fill -->
+                                <rect id="tankWaterRect" x="39" y="25" width="142" height="91" rx="8" fill="rgba(14, 165, 233, 0.55)" class="transition-all duration-700"/>
+                                <text id="tankLabel1" x="110" y="65" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">20 Families</text>
+                                <text id="tankLabel2" x="110" y="86" fill="#bae6fd" font-size="13" font-weight="bold" text-anchor="middle">Lasts 6 Days</text>
+                            </svg>
+                            <div class="mt-3 flex gap-2">
+                                <button onclick="setTankState(20, 6)" class="px-3 py-1 rounded-lg bg-cyan-600 text-xs font-bold">20 Families (6d)</button>
+                                <button onclick="setTankState(30, 4)" class="px-3 py-1 rounded-lg bg-rose-600 text-xs font-bold">30 Families (4d)</button>
+                            </div>
+                        </div>
+
+                        <!-- Expandable Key Assumptions Card -->
+                        <div class="bg-amber-50 border border-amber-300 rounded-2xl p-4">
+                            <button onclick="document.getElementById('assumptionsBody').classList.toggle('hidden')" class="w-full flex items-center justify-between text-left font-bold text-amber-900 text-sm">
+                                <span>💡 Key Assumptions Required (Click to Toggle)</span>
+                                <span>▼</span>
+                            </button>
+                            <ul id="assumptionsBody" class="mt-2.5 space-y-1.5 text-xs text-slate-700 list-disc pl-4 editable">
+                                <li>Every family consumes water at the <strong>same steady daily rate</strong>.</li>
+                                <li>All 30 families draw water uniformly throughout the period.</li>
+                                <li>There is <strong>no refilling, overflow, or leakage</strong> in the tank.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Right: Step-by-Step Solution -->
+                    <div class="anim-up delay-2 lg:col-span-7 space-y-3" id="q3Steps">
+                        <div class="bg-rose-50 border-l-4 border-l-rose-600 p-4 rounded-xl">
+                            <p class="text-sm sm:text-base font-semibold text-slate-900 editable">
+                                <strong>Question 3:</strong> A rooftop water tank supplies <span class="text-rose-700 font-bold">20 families for 6 days</span>. If <span class="text-rose-700 font-bold">10 more families</span> move in, how many days will the water last? What assumptions are needed?
+                            </p>
+                        </div>
+
+                        <div class="step-item revealed bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
+                            <span class="text-xs font-extrabold text-indigo-700 uppercase">Step 1: Find New Total Number of Families</span>
+                            <p class="math-font text-sm sm:text-base text-slate-800 mt-1 editable">
+                                Initial families = 20 &nbsp;|&nbsp; New total = 20 + 10 = <span class="font-bold text-indigo-700">30 families</span>
+                            </p>
+                        </div>
+
+                        <div class="step-item bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
+                            <span class="text-xs font-extrabold text-rose-700 uppercase">Step 2: Set Up Inverse Proportion Equation (x₁y₁ = x₂y₂)</span>
+                            <p class="math-font text-sm sm:text-base text-slate-800 mt-1 editable">
+                                More families ⇒ Water lasts fewer days. &nbsp;20 × 6 = 30 × x &nbsp;⇒&nbsp; 120 = 30x
+                            </p>
+                        </div>
+
+                        <div class="step-item bg-rose-50 border-2 border-rose-500 p-4 rounded-xl shadow-sm">
+                            <span class="text-xs font-extrabold text-rose-800 uppercase">Step 3: Solve for x (Days of Supply)</span>
+                            <p class="math-font text-sm sm:text-base text-slate-900 mt-1 editable">
+                                x = 120 ÷ 30 = <span class="text-rose-700 font-extrabold text-lg">4 days</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SLIDE 7: QUESTION 4 (DAILY SLEEP HOURS CIRCLE CHART) ================= -->
+        <section class="slide" data-title="7. Question 4: Daily Sleep Hours (24h)">
+            <div class="max-w-6xl mx-auto w-full slide-paper p-6 sm:p-9">
+                <div class="anim-up mb-4">
+                    <span class="text-xs font-extrabold uppercase tracking-wider text-indigo-700">Page 67 • Figure It Out — Question 4 (24-Hour Day Chart)</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 editable">Daily Sleep Hours Circle Chart Visualizer</h2>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    <!-- Interactive 24-Hour SVG Pie/Clock Sector -->
+                    <div class="anim-up delay-1 lg:col-span-5 bg-slate-900 text-white p-6 rounded-2xl flex flex-col items-center">
+                        <div class="text-xs font-bold uppercase tracking-wider text-amber-400 mb-3">1 Full Circle = 24 Hours (1 Day)</div>
+                        <svg viewBox="0 0 240 240" class="w-56 sm:w-64 h-auto">
+                            <!-- Base 24h Circle -->
+                            <circle cx="120" cy="120" r="95" fill="#1e293b" stroke="#475569" stroke-width="3"/>
+                            <!-- Dynamic Shaded Sleep Sector -->
+                            <path id="sleepSectorPath" d="" fill="#0d9488" opacity="0.9"/>
+                            <!-- 24-Hour Tick Marks -->
+                            <g id="clockTicks"></g>
+                            <!-- Center Badge -->
+                            <circle cx="120" cy="120" r="34" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+                            <text id="centerHoursText" x="120" y="118" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">8 hrs</text>
+                            <text id="centerFracText" x="120" y="135" fill="#5eead4" font-size="11" font-weight="bold" text-anchor="middle">1/3 day</text>
+                        </svg>
+                        <div class="mt-3 text-center">
+                            <span id="selectedAnimalBadge" class="px-4 py-1 rounded-full bg-teal-500/20 border border-teal-400/40 text-teal-300 text-sm font-bold">
+                                Human • 8 Hours / Day
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Animal Selector Buttons & Ratio Analysis -->
+                    <div class="anim-up delay-2 lg:col-span-7 space-y-4">
+                        <p class="text-sm text-slate-600 editable">
+                            Each circle represents a <strong>24-hour day</strong>. Click an animal below to shade its daily sleep fraction and calculate its proportion of the day:
+                        </p>
+
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="animalButtons">
+                            <!-- Populated by JS -->
+                        </div>
+
+                        <div class="bg-indigo-50 border border-indigo-200 p-4 rounded-2xl">
+                            <h4 class="text-xs font-extrabold uppercase text-indigo-800 mb-2">Proportional Breakdown</h4>
+                            <div id="sleepMathSummary" class="math-font text-sm text-slate-800 space-y-1">
+                                <div>Sleep Ratio = 8 hrs : 24 hrs = <strong class="text-teal-700">1 : 3</strong></div>
+                                <div>Central Angle = (8 / 24) × 360° = <strong class="text-indigo-700">120°</strong></div>
+                                <div>Awake Hours = 24 − 8 = <strong class="text-amber-700">16 hrs (2/3 of day)</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SLIDE 8: QUICK RECAP & CLASSROOM CHECK ================= -->
+        <section class="slide" data-title="8. Quick Recap & Classroom Check">
+            <div class="max-w-6xl mx-auto w-full slide-paper p-6 sm:p-9">
+                <div class="anim-up mb-5">
+                    <span class="text-xs font-extrabold uppercase tracking-wider text-amber-600">Summary &amp; Check-In</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 editable">Page 67 Recap &amp; Classroom Mini-Quiz</h2>
+                </div>
+
+                <!-- Formula Summary Strip -->
+                <div class="anim-up delay-1 grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                    <div class="p-4 rounded-2xl bg-teal-50 border border-teal-300 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs font-extrabold text-teal-800 uppercase">Direct Proportion</span>
+                            <div class="math-font text-lg font-extrabold text-slate-900">x₁ / y₁ = x₂ / y₂</div>
+                        </div>
+                        <span class="text-xs font-semibold text-teal-800 bg-teal-200/70 px-2.5 py-1 rounded-lg">Cost, Distance, Pages</span>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-rose-50 border border-rose-300 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs font-extrabold text-rose-800 uppercase">Inverse Proportion</span>
+                            <div class="math-font text-lg font-extrabold text-slate-900">x₁ × y₁ = x₂ × y₂</div>
+                        </div>
+                        <span class="text-xs font-semibold text-rose-800 bg-rose-200/70 px-2.5 py-1 rounded-lg">Taps, Painters, Speed, Water</span>
+                    </div>
+                </div>
+
+                <!-- 3-Question Interactive Mini-Quiz -->
+                <div class="anim-up delay-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Mini Q1 -->
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-indigo-700">Check 1</span>
+                            <p class="text-sm font-bold text-slate-900 mt-1 mb-3 editable">If 12 pens cost ₹96, what do 15 pens cost?</p>
+                        </div>
+                        <div class="space-y-1.5">
+                            <button onclick="answerMiniQuiz(this, false, 'q1fb', 'Unit cost = ₹96 ÷ 12 = ₹8; 15 × ₹8 = ₹120.')" class="w-full text-left px-3 py-2 rounded-lg border border-slate-300 hover:bg-slate-100 text-xs font-bold math-font">₹108</button>
+                            <button onclick="answerMiniQuiz(this, true, 'q1fb', 'Correct! ₹8 per pen × 15 = ₹120.')" class="w-full text-left px-3 py-2 rounded-lg border border-slate-300 hover:bg-slate-100 text-xs font-bold math-font">₹120</button>
+                        </div>
+                        <p id="q1fb" class="text-xs font-semibold mt-2 hidden"></p>
+                    </div>
+
+                    <!-- Mini Q2 -->
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-indigo-700">Check 2</span>
+                            <p class="text-sm font-bold text-slate-900 mt-1 mb-3 editable">6 taps fill a tank in 40 min. How long for 8 taps?</p>
+                        </div>
+                        <div class="space-y-1.5">
+                            <button onclick="answerMiniQuiz(this, true, 'q2fb', 'Spot on! 6 × 40 = 240; 240 ÷ 8 = 30 min.')" class="w-full text-left px-3 py-2 rounded-lg border border-slate-300 hover:bg-slate-100 text-xs font-bold math-font">30 minutes</button>
+                            <button onclick="answerMiniQuiz(this, false, 'q2fb', 'Inverse proportion! More taps take LESS time: (6×40)÷8 = 30.')" class="w-full text-left px-3 py-2 rounded-lg border border-slate-300 hover:bg-slate-100 text-xs font-bold math-font">53 minutes</button>
+                        </div>
+                        <p id="q2fb" class="text-xs font-semibold mt-2 hidden"></p>
+                    </div>
+
+                    <!-- Mini Q3 -->
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-indigo-700">Check 3</span>
+                            <p class="text-sm font-bold text-slate-900 mt-1 mb-3 editable">A bat sleeps 20 hours a day. What fraction of the day is it awake?</p>
+                        </div>
+                        <div class="space-y-1.5">
+                            <button onclick="answerMiniQuiz(this, false, 'q3fb', '20/24 = 5/6 is sleeping time; awake is 4/24 = 1/6.')" class="w-full text-left px-3 py-2 rounded-lg border border-slate-300 hover:bg-slate-100 text-xs font-bold math-font">5 / 6</button>
+                            <button onclick="answerMiniQuiz(this, true, 'q3fb', 'Yes! 24 − 20 = 4 hrs awake → 4/24 = 1/6.')" class="w-full text-left px-3 py-2 rounded-lg border border-slate-300 hover:bg-slate-100 text-xs font-bold math-font">1 / 6</button>
+                        </div>
+                        <p id="q3fb" class="text-xs font-semibold mt-2 hidden"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="fixed bottom-3 left-1/2 -translate-x-1/2 z-40 bg-slate-900/95 backdrop-blur-md border border-slate-700 px-4 py-2 rounded-full flex items-center gap-4 shadow-2xl">
+        <button id="prevBtn" onclick="prevSlide()" class="p-2 rounded-full hover:bg-slate-800 text-slate-300 hover:text-white disabled:opacity-30 transition" title="Previous Slide (Left Arrow)">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+
+        <span id="slideCounter" class="math-font text-sm font-extrabold text-amber-400">1 / 8</span>
+
+        <button id="nextBtn" onclick="nextSlide()" class="p-2 rounded-full hover:bg-slate-800 text-slate-300 hover:text-white disabled:opacity-30 transition" title="Next Slide (Right Arrow)">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+    </footer>
+
+    <!-- Slide Overview Grid Modal -->
+    <div id="gridModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 hidden flex-col items-center justify-center p-6">
+        <div class="max-w-5xl w-full">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl sm:text-2xl font-bold text-white">Slide Overview — Ganita Prakash Part 2 (Page 67)</h3>
+                <button onclick="toggleGridModal()" class="p-2 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div id="gridContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4"></div>
+        </div>
+    </div>
+
+    <script>
+        /* ================= PRESENTATION NAVIGATION ENGINE ================= */
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+        let isEditMode = false;
+
+        const stepProgress = {
+            q2: { current: 1, total: 3 },
+            q3: { current: 1, total: 3 }
+        };
+
+        function updateDeckUI() {
+            slides.forEach((slide, idx) => {
+                slide.classList.remove('active', 'prev');
+                if (idx === currentSlide) {
+                    slide.classList.add('active');
+                } else if (idx < currentSlide) {
+                    slide.classList.add('prev');
+                }
+            });
+
+            const pct = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = `${pct}%`;
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateDeckUI();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateDeckUI();
+            }
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateDeckUI();
+            const modal = document.getElementById('gridModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        /* Keyboard Shortcuts */
+        document.addEventListener('keydown', (e) => {
+            if (isEditMode) return;
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key === 'Escape') {
+                const modal = document.getElementById('gridModal');
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        });
+
+        /* Touch Swipe Gestures */
+        let touchStartX = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        document.addEventListener('touchend', (e) => {
+            if (isEditMode) return;
+            const diff = e.changedTouches[0].screenX - touchStartX;
+            if (Math.abs(diff) > 55) {
+                if (diff < 0) nextSlide();
+                else prevSlide();
+            }
+        }, { passive: true });
+
+        /* ================= SLIDE 2: CONCEPT HIGHLIGHT TOGGLE ================= */
+        function highlightMode(mode) {
+            const dCard = document.getElementById('directCard');
+            const iCard = document.getElementById('inverseCard');
+            dCard.style.opacity = (mode === 'inverse') ? '0.35' : '1';
+            iCard.style.opacity = (mode === 'direct') ? '0.35' : '1';
+            dCard.style.transform = (mode === 'direct') ? 'scale(1.02)' : 'scale(1)';
+            iCard.style.transform = (mode === 'inverse') ? 'scale(1.02)' : 'scale(1)';
+        }
+
+        /* ================= SLIDES 3 & 4: FLIP ALL CARDS ================= */
+        function flipAllInSlide(btn) {
+            const slide = btn.closest('.slide');
+            const cards = slide.querySelectorAll('.flip-card');
+            const anyUnflipped = Array.from(cards).some(c => !c.classList.contains('flipped'));
+            cards.forEach(c => {
+                if (anyUnflipped) c.classList.add('flipped');
+                else c.classList.remove('flipped');
+            });
+        }
+
+        /* ================= SLIDES 5 & 6: STEP-BY-STEP REVEALS ================= */
+        function revealNextStep(qId) {
+            const state = stepProgress[qId];
+            const boxes = document.getElementById(`${qId}Steps`).querySelectorAll('.step-item');
+            if (state.current < state.total) {
+                boxes[state.current].classList.add('revealed');
+                state.current++;
+                if (qId === 'q2' && state.current === 3) {
+                    document.getElementById('barCostLabel').textContent = '₹100';
+                }
+                if (qId === 'q3' && state.current === 3) {
+                    setTankState(30, 4);
+                }
+            } else {
+                boxes.forEach((b, idx) => { if (idx > 0) b.classList.remove('revealed'); });
+                state.current = 1;
+                if (qId === 'q2') document.getElementById('barCostLabel').textContent = '?';
+                if (qId === 'q3') setTankState(20, 6);
+            }
+            document.getElementById(`${qId}Counter`).textContent = `${state.current} / ${state.total}`;
+        }
+
+        function setTankState(families, days) {
+            const rect = document.getElementById('tankWaterRect');
+            document.getElementById('tankLabel1').textContent = `${families} Families`;
+            document.getElementById('tankLabel2').textContent = `Lasts ${days} Days`;
+            if (days === 4) {
+                rect.setAttribute('y', '52');
+                rect.setAttribute('height', '64');
+                rect.setAttribute('fill', 'rgba(244, 63, 94, 0.65)');
+            } else {
+                rect.setAttribute('y', '25');
+                rect.setAttribute('height', '91');
+                rect.setAttribute('fill', 'rgba(14, 165, 233, 0.55)');
+            }
+        }
+
+        /* ================= SLIDE 7: 24-HOUR SLEEP SECTOR CHART ================= */
+        const animalsData = [
+            { name: 'Giraffe', hours: 2, color: '#f59e0b' },
+            { name: 'Elephant', hours: 4, color: '#10b981' },
+            { name: 'Human', hours: 8, color: '#0d9488' },
+            { name: 'Dog', hours: 10, color: '#3b82f6' },
+            { name: 'Cat', hours: 12, color: '#8b5cf6' },
+            { name: 'Squirrel', hours: 15, color: '#ec4899' },
+            { name: 'Snake', hours: 18, color: '#f43f5e' },
+            { name: 'Bat', hours: 20, color: '#e11d48' }
+        ];
+
+        function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
+
+        function buildClockTicks() {
+            const g = document.getElementById('clockTicks');
+            for (let i = 0; i < 24; i++) {
+                const angle = (i / 24) * 2 * Math.PI - Math.PI / 2;
+                const x1 = 120 + 86 * Math.cos(angle);
+                const y1 = 120 + 86 * Math.sin(angle);
+                const x2 = 120 + 95 * Math.cos(angle);
+                const y2 = 120 + 95 * Math.sin(angle);
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', x1);
+                line.setAttribute('y1', y1);
+                line.setAttribute('x2', x2);
+                line.setAttribute('y2', y2);
+                line.setAttribute('stroke', i % 6 === 0 ? '#f8fafc' : '#64748b');
+                line.setAttribute('stroke-width', i % 6 === 0 ? '2.5' : '1.2');
+                g.appendChild(line);
+            }
+        }
+
+        function renderAnimalButtons() {
+            const container = document.getElementById('animalButtons');
+            animalsData.forEach((animal, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'animal-btn p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:border-indigo-500 text-left transition shadow-sm';
+                btn.innerHTML = `
+                    <div class="text-xs font-extrabold text-slate-900">${animal.name}</div>
+                    <div class="math-font text-xs font-bold text-indigo-700">${animal.hours} hrs</div>
+                `;
+                btn.onclick = () => selectAnimal(idx);
+                container.appendChild(btn);
+            });
+        }
+
+        function selectAnimal(idx) {
+            const animal = animalsData[idx];
+            const buttons = document.querySelectorAll('.animal-btn');
+            buttons.forEach((b, i) => {
+                b.classList.toggle('ring-2', i === idx);
+                b.classList.toggle('ring-indigo-600', i === idx);
+                b.classList.toggle('bg-indigo-50', i === idx);
+            });
+
+            // Calculate SVG pie wedge for hours / 24
+            const cx = 120, cy = 120, r = 93;
+            const fraction = animal.hours / 24;
+            const angleRad = fraction * 2 * Math.PI;
+            const endX = cx + r * Math.sin(angleRad);
+            const endY = cy - r * Math.cos(angleRad);
+            const largeArc = fraction > 0.5 ? 1 : 0;
+
+            const pathData = `M ${cx} ${cy} L ${cx} ${cy - r} A ${r} ${r} 0 ${largeArc} 1 ${endX.toFixed(2)} ${endY.toFixed(2)} Z`;
+            const sector = document.getElementById('sleepSectorPath');
+            sector.setAttribute('d', pathData);
+            sector.setAttribute('fill', animal.color);
+
+            const divisor = gcd(animal.hours, 24);
+            const num = animal.hours / divisor;
+            const den = 24 / divisor;
+            const awake = 24 - animal.hours;
+            const awakeDiv = gcd(awake, 24);
+
+            document.getElementById('centerHoursText').textContent = `${animal.hours} hrs`;
+            document.getElementById('centerFracText').textContent = `${num}/${den} day`;
+            document.getElementById('selectedAnimalBadge').textContent = `${animal.name} • ${animal.hours} Hours / Day`;
+
+            document.getElementById('sleepMathSummary').innerHTML = `
+                <div>Sleep Ratio = ${animal.hours} hrs : 24 hrs = <strong class="text-teal-700">${num} : ${den}</strong></div>
+                <div>Central Angle = (${animal.hours} / 24) × 360° = <strong class="text-indigo-700">${Math.round(fraction * 360)}°</strong></div>
+                <div>Awake Hours = 24 − ${animal.hours} = <strong class="text-amber-700">${awake} hrs (${awake / awakeDiv}/${24 / awakeDiv} of day)</strong></div>
+            `;
+        }
+
+        /* ================= SLIDE 8: MINI-QUIZ FEEDBACK ================= */
+        function answerMiniQuiz(btn, isCorrect, fbId, msg) {
+            const parent = btn.parentElement;
+            parent.querySelectorAll('button').forEach(b => {
+                b.classList.remove('bg-teal-600', 'text-white', 'bg-rose-600');
+            });
+            btn.classList.add(isCorrect ? 'bg-teal-600' : 'bg-rose-600', 'text-white');
+            const fb = document.getElementById(fbId);
+            fb.textContent = msg;
+            fb.className = `text-xs font-bold mt-2 ${isCorrect ? 'text-teal-700' : 'text-rose-700'}`;
+            fb.classList.remove('hidden');
+        }
+
+        /* ================= CLASSROOM UTILITIES ================= */
+        function toggleEditMode() {
+            isEditMode = !isEditMode;
+            document.body.classList.toggle('edit-mode', isEditMode);
+            document.querySelectorAll('.editable').forEach(el => {
+                el.setAttribute('contenteditable', isEditMode ? 'true' : 'false');
+            });
+            document.getElementById('editBtnLabel').textContent = isEditMode ? 'Done Editing' : 'Edit Text';
+        }
+
+        function toggleGridModal() {
+            const modal = document.getElementById('gridModal');
+            const container = document.getElementById('gridContainer');
+            if (modal.classList.contains('hidden')) {
+                container.innerHTML = '';
+                slides.forEach((s, idx) => {
+                    const card = document.createElement('button');
+                    card.onclick = () => goToSlide(idx);
+                    card.className = `p-4 rounded-xl text-left bg-slate-900 border ${idx === currentSlide ? 'border-amber-400 ring-2 ring-amber-400/50' : 'border-slate-700 hover:border-teal-400'} transition`;
+                    card.innerHTML = `
+                        <span class="text-xs font-extrabold text-teal-400">Slide ${idx + 1}</span>
+                        <h4 class="text-sm font-bold text-white mt-1">${s.dataset.title}</h4>
+                    `;
+                    container.appendChild(card);
+                });
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            } else {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        window.onload = () => {
+            updateDeckUI();
+            buildClockTicks();
+            renderAnimalButtons();
+            selectAnimal(2); // Default to Human (8 hrs)
+        };
+    </script>
+</body>
+</html>
